@@ -15,7 +15,7 @@ on:
             description: 'Name of the S3 bucket to create'
             required: false
             default: 'my-unique-bucket-name-12345'
-    push:
+    pull_request:
         branches:
             - main
 

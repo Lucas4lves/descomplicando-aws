@@ -1,0 +1,37 @@
+name: "Apply Cloudformation template"
+
+on:
+    workflow_dispatch:
+        inputs:
+          stack-name:
+            description: 'CloudFormation Stack Name'
+            required: true
+            default: 'basic-s3-stack'
+          template-file:
+            description: 'Path to CloudFormation template file'
+            required: true
+            default: 'cloudformation-templates/s3/cf-basic-s3.yml'
+          bucket-name:
+            description: 'Name of the S3 bucket to create'
+            required: false
+            default: 'my-unique-bucket-name-12345'
+
+jobs:
+    apply-cloudformation:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials from IAM Role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::532907084571:role/gh-actions-user-role
+          aws-region: us-east-1
+      - name: Deploy CF Stack
+        run: |
+          aws cloudformation deploy \
+            --stack-name ${{github.inputs['stack-name']}} \
+            --template-file ${{github.inputs['template-file']}} \
+            --parameter-overrides BucketName=${{github.inputs['bucket-name']}} \
+            --capabilities CAPABILITY_NAMED_IAM
+    

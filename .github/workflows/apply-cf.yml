@@ -15,6 +15,9 @@ on:
             description: 'Name of the S3 bucket to create'
             required: false
             default: 'my-unique-bucket-name-12345'
+    push:
+        branches:
+            - main
 
 permissions:
   id-token: write

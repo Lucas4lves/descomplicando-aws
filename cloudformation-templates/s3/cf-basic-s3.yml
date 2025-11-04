@@ -18,3 +18,8 @@ Resources:
         BlockPublicPolicy: true
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
+      Tags:
+        - Key: Name
+          Value: !Ref BucketName
+        - Key: TeamName
+          Value: DevSecOps

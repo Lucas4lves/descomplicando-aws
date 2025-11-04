@@ -16,6 +16,10 @@ on:
             required: false
             default: 'my-unique-bucket-name-12345'
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
     apply-cloudformation:
       runs-on: ubuntu-latest

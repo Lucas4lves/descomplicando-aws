@@ -15,7 +15,7 @@ Resources:
       AccessControl: Private
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
-        BlockPublicPolicy: true
+        BlockPublicPolicy: false
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
       Tags:
@@ -23,3 +23,13 @@ Resources:
           Value: !Ref BucketName
         - Key: TeamName
           Value: DevSecOps
+  BasicS3BucketPolicy:
+    Type: AWS::S3::ManagedPolicy
+    Properties: 
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: ['s3:GetObject']
+            Resource: !Sub arn:aws:s3:::${BasicS3Bucket}/*\
+

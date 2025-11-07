@@ -5,7 +5,6 @@ import {
     ListBucketsCommand,
 } from "@aws-sdk/client-s3";
 
-
 async function createBucket(s3Client, bucketName) {
 	try{
 		await s3Client.send(
@@ -42,7 +41,7 @@ export async function main(){
     // Creating a S3 Client to communicate with AWS backend
     const client = new S3Client({});
 	
-	putPublicReadObject(client, "daws-exercise-bucket-1762278950299", {
+	putPublicReadObject(client,  process.env.TARGET_BUCKET || "", {
 		key: "cat-image.jpg",
 		body: "imageBuffer",
 		contentType: "image/jpeg"
